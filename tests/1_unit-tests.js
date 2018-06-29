@@ -19,6 +19,7 @@ suite('Unit Tests', function(){
     test('Whole number input', function(done) {
       var input = '32L';
       assert.equal(convertHandler.getNum(input), 32);
+      assert.fail(); // Purposely fail to see if testing is being run.
       done();
     });
     
