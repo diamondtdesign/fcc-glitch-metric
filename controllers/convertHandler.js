@@ -6,6 +6,23 @@
 *       
 */
 
+const round = function(number, precision = 0) {
+  var shift = function(number, precision, reverseShift) {
+    if (reverseShift) {
+      precision = -precision;
+    }
+
+    var numArray = ("" + number).split("e");
+    return +(
+      numArray[0] +
+      "e" +
+      (numArray[1] ? +numArray[1] + precision : precision)
+    );
+  };
+
+  return shift(Math.round(shift(number, precision, false)), precision, true);
+};
+
 function ConvertHandler() {
   
   this.getNum = function(input) {
@@ -19,9 +36,11 @@ function ConvertHandler() {
     const nums = input.split("/");
     switch (nums.length) {
       case 1:
-        return parseFloat(nums[0]);
+        return parseFloat(nums[0]) == nums[0] ? parseFloat(nums[0]) : NaN;
       
       case 2:
+        if (!(parseFloat(nums[0]) == nums[0])) return NaN;
+        if (!(parseFloat(nums[1]) == nums[1])) return NaN;
         return parseFloat(nums[0]) / parseFloat(nums[1]);
         
       default:
@@ -68,12 +87,12 @@ function ConvertHandler() {
     const miToKm = 1.60934;
     
     switch (initUnit.toLowerCase()) {
-      case "gal": return initNum * galToL;
-      case "l": return initNum / galToL;
-      case "lbs": return initNum * lbsToKg;
-      case "kg": return initNum / lbsToKg;
-      case "mi": return initNum * miToKm;
-      case "km": return initNum / miToKm;
+      case "gal": return round(initNum * galToL, 5);
+      case "l": return round(initNum / galToL, 5);
+      case "lbs": return round(initNum * lbsToKg, 5);
+      case "kg": return round(initNum / lbsToKg, 5);
+      case "mi": return round(initNum * miToKm, 5);
+      case "km": return round(initNum / miToKm, 5);
       default: return NaN;
     }
   };
