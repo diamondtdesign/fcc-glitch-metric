@@ -30,36 +30,56 @@ function ConvertHandler() {
   };
   
   this.getUnit = function(input) {
-    var result;
+    const match = input.match(/[a-z]/i);
+    if (!match) return "invalid";
     
-    return result;
+    input = input.substring(match.index);
+    if (['gal', 'l', 'lbs', 'kg', 'mi', 'km'].indexOf(input) + 1) return input;
+    return "invalid";
   };
   
   this.getReturnUnit = function(initUnit) {
-    var result;
-    
-    return result;
+    switch (initUnit.toLowerCase()) {
+      case "gal": return "l";
+      case "l": return "gal";
+      case "lbs": return "kg";
+      case "kg": return "lbs";
+      case "mi": return "km";
+      case "km": return "mi";
+      default: return "invalid";
+    }
   };
 
   this.spellOutUnit = function(unit) {
-    var result;
-    
-    return result;
+    switch (unit.toLowerCase()) {
+      case "gal": return "gallons";
+      case "l": return "liters";
+      case "lbs": return "pounds";
+      case "kg": return "kilograms";
+      case "mi": return "miles";
+      case "km": return "kilometers";
+      default: return "invalid";
+    }
   };
   
   this.convert = function(initNum, initUnit) {
     const galToL = 3.78541;
     const lbsToKg = 0.453592;
     const miToKm = 1.60934;
-    var result;
     
-    return result;
+    switch (initUnit.toLowerCase()) {
+      case "gal": return initNum * galToL;
+      case "l": return initNum / galToL;
+      case "lbs": return initNum * lbsToKg;
+      case "kg": return initNum / lbsToKg;
+      case "mi": return initNum * miToKm;
+      case "km": return initNum / miToKm;
+      default: return NaN;
+    }
   };
   
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
-    var result;
-    
-    return result;
+    return `${initNum} ${this.spellOutUnit(initUnit)} converts to ${returnNum} ${this.spellOutUnit(returnUnit)}`;
   };
   
 }
