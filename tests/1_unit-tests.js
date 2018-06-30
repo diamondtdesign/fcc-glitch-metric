@@ -66,7 +66,7 @@ suite('Unit Tests', function(){
     
     test('Unknown Unit Input', function(done) {
       var input = 'z';
-      assert.equal(convertHandler.getUnit(input), "unknown unit");
+      assert.equal(convertHandler.getUnit(input), "invalid");
       done();
     });  
     
