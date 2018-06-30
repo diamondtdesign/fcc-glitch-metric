@@ -53,7 +53,7 @@ function ConvertHandler() {
     if (!match) return "invalid";
     
     input = input.substring(match.index);
-    if (['gal', 'l', 'lbs', 'kg', 'mi', 'km'].indexOf(input) + 1) return input;
+    if (['gal', 'l', 'lbs', 'kg', 'mi', 'km'].indexOf(input.toLowerCase()) + 1) return input;
     return "invalid";
   };
   
